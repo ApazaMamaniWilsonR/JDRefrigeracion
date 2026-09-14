@@ -1,0 +1,17 @@
+-- Script para crear el usuario principal de JDRefrigeracion
+-- Ejecutar en SQL Developer conectado como SYS o SYSTEM
+
+-- 1. Crear el usuario para JD Refrigeracion
+CREATE USER JDREFRIG_APP IDENTIFIED BY 123456 DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP;
+
+-- 2. Asignar permisos básicos
+GRANT CONNECT, RESOURCE TO JDREFRIG_APP;
+GRANT CREATE SESSION TO JDREFRIG_APP;
+GRANT CREATE TABLE TO JDREFRIG_APP;
+GRANT CREATE VIEW TO JDREFRIG_APP;
+GRANT CREATE SEQUENCE TO JDREFRIG_APP;
+GRANT CREATE PROCEDURE TO JDREFRIG_APP;
+ALTER USER JDREFRIG_APP QUOTA UNLIMITED ON USERS;
+
+-- Nota: Todas las tablas (INVENTARIO, PROVEEDORES, COMPRAS, etc.) 
+-- se crearán automáticamente bajo este mismo usuario por Hibernate.
