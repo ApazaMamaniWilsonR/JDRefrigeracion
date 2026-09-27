@@ -1,47 +1,104 @@
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\compra\controller\CompraController.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\compra\dto\CompraAgregado.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\compra\dto\CompraReporte.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\compra\dto\CompraRequest.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\compra\dto\CompraResponse.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\compra\dto\CompraResumen.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\compra\dto\DetalleCompraRequest.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\compra\dto\DetalleCompraResponse.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\compra\dto\package-info.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\compra\entity\Compra.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\compra\entity\DetalleCompra.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\compra\entity\EstadoCompra.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\compra\mapper\CompraMapper.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\compra\repository\CompraRepository.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\compra\service\CompraService.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\compra\service\CompraServiceImpl.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\compra\service\package-info.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\exception\GlobalExceptionHandler.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\exception\package-info.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\exception\ResourceNotFoundException.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\exception\StockInsuficienteException.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\filter\CorrelationIdFilter.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\filter\cors\CorsConfig.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\HelloController.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\InsertDummyData.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\item\controller\InventarioController.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\item\dto\InventarioRequest.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\item\dto\InventarioResponse.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\item\dto\package-info.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\item\entity\Inventario.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\item\mapper\InventarioMapper.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\item\repository\InventarioRepository.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\item\service\InventarioService.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\item\service\InventarioServiceImpl.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\item\service\package-info.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\JdRefrigeracionApplication.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\OpenApiConfig.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\proveedores\proveedor\controller\ProveedorController.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\proveedores\proveedor\dto\package-info.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\proveedores\proveedor\dto\ProveedorRequest.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\proveedores\proveedor\dto\ProveedorResponse.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\proveedores\proveedor\entity\Proveedor.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\proveedores\proveedor\mapper\ProveedorMapper.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\proveedores\proveedor\repository\ProveedorRepository.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\proveedores\proveedor\service\package-info.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\proveedores\proveedor\service\ProveedorService.java
-E:\ciclo 4\lp2\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\proveedores\proveedor\service\ProveedorServiceImpl.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\clientes\client\DocumentoApiClient.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\clientes\controller\ClienteController.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\clientes\dto\ClienteRequest.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\clientes\dto\ClienteResponse.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\clientes\dto\ConsultaDocumentoResponse.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\clientes\entity\Cliente.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\clientes\entity\TipoCliente.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\clientes\repository\ClienteRepository.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\clientes\service\ClienteService.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\clientes\service\ConsultaDocumentoService.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\common\config\CorsConfig.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\common\exception\GlobalExceptionHandler.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\common\exception\RecursoNoEncontradoException.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\controller\CompraController.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\dtos\CompraRequestDTO.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\entity\Compra.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\entity\DetalleCompra.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\repository\CompraRepository.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\compras\service\CompraService.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\exception\CustomExceptionHandler.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\exception\package-info.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\exception\ResourceNotFoundException.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\exception\StockInsuficienteException.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\facturacion\controller\ComprobanteElectronicoController.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\facturacion\dto\ComprobanteRequest.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\facturacion\dto\ComprobanteResponse.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\facturacion\dto\EnvioClienteRequest.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\facturacion\entity\ComprobanteElectronico.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\facturacion\entity\EstadoEnvioCliente.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\facturacion\entity\EstadoSunat.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\facturacion\entity\TipoComprobante.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\facturacion\repository\ComprobanteElectronicoRepository.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\facturacion\service\ComprobanteElectronicoService.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\filter\CorrelationIdFilter.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\HelloController.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\controller\CategoriaController.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\controller\ProductoController.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\dto\CategoriaRequest.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\dto\ProductoRequest.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\dto\ProductoResponse.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\entity\Categoria.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\entity\Producto.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\repository\CategoriaRepository.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\repository\ProductoRepository.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\service\CategoriaService.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\inventario\service\ProductoService.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\JdRefrigeracionApplication.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\notificaciones\controller\NotificacionController.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\notificaciones\dto\NotificacionRequest.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\notificaciones\dto\NotificacionResponse.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\notificaciones\entity\EstadoNotificacion.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\notificaciones\entity\Notificacion.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\notificaciones\entity\TipoNotificacion.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\notificaciones\repository\NotificacionRepository.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\notificaciones\service\NotificacionService.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\notificaciones\service\NotificadorCorreo.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\notificaciones\service\NotificadorCorreoReal.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\OpenApiConfig.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\postventa\controller\PostventaController.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\postventa\dto\ActualizarMantenimientoRequest.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\postventa\dto\InstalacionRequest.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\postventa\dto\InstalacionResponse.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\postventa\dto\MantenimientoResponse.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\postventa\entity\EstadoMantenimiento.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\postventa\entity\Instalacion.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\postventa\entity\Mantenimiento.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\postventa\repository\InstalacionRepository.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\postventa\repository\MantenimientoRepository.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\postventa\service\PostventaService.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\proveedores\controller\ProveedorController.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\proveedores\entity\Proveedor.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\proveedores\repository\ProveedorRepository.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\proveedores\service\ProveedorService.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\controller\CotizacionController.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\controller\PagoController.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\controller\VentaController.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\dto\CotizacionRequest.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\dto\CotizacionResponse.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\dto\DetalleCotizacionRequest.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\dto\DetalleCotizacionResponse.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\dto\DetalleVentaRequest.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\dto\DetalleVentaResponse.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\dto\PagoRequest.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\dto\PagoResponse.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\dto\ResumenPagoVentaResponse.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\dto\VentaRequest.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\dto\VentaResponse.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\entity\Cotizacion.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\entity\DetalleCotizacion.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\entity\DetalleVenta.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\entity\EstadoCotizacion.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\entity\EstadoPago.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\entity\EstadoVenta.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\entity\MetodoPago.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\entity\Moneda.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\entity\Pago.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\entity\Venta.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\repository\CotizacionRepository.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\repository\PagoRepository.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\repository\VentaRepository.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\service\CotizacionService.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\service\GeneradorPdfService.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\service\PagoService.java
+E:\ciclo 4\lp2\Unidad 1\sesion 5\5\JDRefrigeracion\lp2\jdrefrigeracion-backend\src\main\java\pe\edu\upeu\jdrefrigeracion\ventas\service\VentaService.java
