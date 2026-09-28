@@ -80,6 +80,12 @@ public class ProductoService {
         productoRepository.save(producto);
     }
 
+    public void aumentarStock(Long productoId, Integer cantidad) {
+        Producto producto = buscarEntidadPorId(productoId);
+        producto.setStock(producto.getStock() + cantidad);
+        productoRepository.save(producto);
+    }
+
     private ProductoResponse toResponse(Producto producto) {
         return new ProductoResponse(
                 producto.getId(),

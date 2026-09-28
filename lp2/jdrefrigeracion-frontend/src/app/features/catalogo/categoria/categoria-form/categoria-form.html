@@ -1,0 +1,23 @@
+<div class="form-container">
+  <h2>{{ categoriaId ? 'Editar' : 'Nueva' }} Categoría</h2>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input id="nombre" type="text" formControlName="nombre" />
+      @if (form.controls.nombre.invalid && form.controls.nombre.touched) {
+        <span class="error">El nombre es requerido (máx. 80 caracteres).</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="descripcion">Descripción (opcional):</label>
+      <textarea id="descripcion" formControlName="descripcion"></textarea>
+    </div>
+
+    <div class="actions">
+      <button type="submit" [disabled]="form.invalid">Guardar</button>
+      <a routerLink="/catalogo/categorias" class="btn-cancel">Cancelar</a>
+    </div>
+  </form>
+</div>

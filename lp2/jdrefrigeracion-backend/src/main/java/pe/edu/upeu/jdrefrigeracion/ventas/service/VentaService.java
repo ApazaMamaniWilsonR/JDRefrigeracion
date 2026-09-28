@@ -211,6 +211,21 @@ public class VentaService {
         ventaRepository.save(venta);
     }
 
+    @Transactional
+    public void anular(Long ventaId) {
+        Venta venta = buscarEntidadPorId(ventaId);
+        if (venta.getEstado() == EstadoVenta.ANULADA) {
+            throw new IllegalStateException("La venta ya está anulada");
+        }
+        venta.setEstado(EstadoVenta.ANULADA);
+        
+        for (DetalleVenta detalle : venta.getDetalles()) {
+            productoService.aumentarStock(detalle.getProducto().getId(), detalle.getCantidad());
+        }
+        
+        ventaRepository.save(venta);
+    }
+
     private BigDecimal obtenerPrecioSegunMoneda(BigDecimal precioSoles, Moneda moneda, BigDecimal tipoCambio) {
         if (moneda == Moneda.PEN) {
             return precioSoles.setScale(2, RoundingMode.HALF_UP);
