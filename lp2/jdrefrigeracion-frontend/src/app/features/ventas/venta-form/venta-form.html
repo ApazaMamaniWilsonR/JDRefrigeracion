@@ -1,0 +1,104 @@
+<div class="form-container">
+  <h2>Nueva Venta</h2>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    
+    <div class="header-section">
+      <h3>Datos Principales</h3>
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Cliente:</label>
+          <select formControlName="clienteId">
+            <option [ngValue]="null">-- Seleccione un Cliente --</option>
+            @for (cli of clientes(); track cli.id) {
+              <option [value]="cli.id">{{ cli.numeroDocumento }} - {{ cli.nombres || cli.razonSocial }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Moneda:</label>
+          <select formControlName="moneda">
+            <option value="PEN">Soles (PEN)</option>
+            <option value="USD">Dólares (USD)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Tipo de Cambio:</label>
+          <input type="number" step="0.01" formControlName="tipoCambio" />
+        </div>
+
+        <div class="form-group">
+          <label>Descuento Global:</label>
+          <input type="number" step="0.01" formControlName="descuento" />
+        </div>
+      </div>
+    </div>
+
+    <div class="details-section">
+      <div class="details-header">
+        <h3>Detalle de Venta</h3>
+        <button type="button" class="btn-primary" (click)="agregarDetalle()">+ Agregar Producto</button>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th style="width: 150px">Cantidad</th>
+            <th>P. Unitario</th>
+            <th>Subtotal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody formArrayName="detalles">
+          @for (detalle of detallesFormArray.controls; track $index) {
+            <tr [formGroupName]="$index">
+              <td>
+                <select formControlName="productoId" class="full-width">
+                  <option [ngValue]="null">-- Seleccione --</option>
+                  @for (prod of productos(); track prod.id) {
+                    <option [value]="prod.id">{{ prod.nombre }}</option>
+                  }
+                </select>
+              </td>
+              <td>
+                <input type="number" min="1" formControlName="cantidad" class="full-width" />
+              </td>
+              <td class="text-right">
+                {{ getProductoPrecio(detalle.get('productoId')?.value) | currency:form.value.moneda }}
+              </td>
+              <td class="text-right fw-bold">
+                {{ getSubtotalDetalle($index) | currency:form.value.moneda }}
+              </td>
+              <td class="text-center">
+                <button type="button" class="btn-delete" (click)="removerDetalle($index)" [disabled]="detallesFormArray.length === 1">X</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" class="text-right fw-bold">Subtotal:</td>
+            <td class="text-right fw-bold">{{ getSubtotalGeneral() | currency:form.value.moneda }}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="3" class="text-right fw-bold text-success">Total Aprox (Inc. IGV):</td>
+            <td class="text-right fw-bold text-success">{{ getTotal() | currency:form.value.moneda }}</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+      @if (detallesFormArray.length === 0) {
+        <div class="error-msg text-center mt-2">Debe agregar al menos un producto a la venta.</div>
+      }
+    </div>
+
+    <div class="actions">
+      <button type="submit" [disabled]="form.invalid || detallesFormArray.length === 0" class="btn-success">Completar Venta</button>
+      <a routerLink="/ventas" class="btn-cancel">Cancelar</a>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,103 @@
+<div class="list-container">
+  <div class="header-actions">
+    <h2>Ventas Realizadas</h2>
+    <a routerLink="nuevo" class="btn-primary">Nueva Venta</a>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Cliente</th>
+        <th>Moneda</th>
+        <th>Total</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (venta of ventas(); track venta.id) {
+        <tr>
+          <td>{{ venta.id }}</td>
+          <td>{{ venta.fecha | date:'short' }}</td>
+          <td>{{ venta.cliente }}</td>
+          <td>{{ venta.moneda }}</td>
+          <td class="text-right">{{ venta.total | currency:venta.moneda }}</td>
+          <td>
+            <span class="badge" 
+                  [class.badge-success]="venta.estado === 'REGISTRADA' || venta.estado === 'FACTURADA'" 
+                  [class.badge-danger]="venta.estado === 'ANULADA'">
+              {{ venta.estado || 'REGISTRADA' }}
+            </span>
+          </td>
+          <td class="actions-cell">
+            <button (click)="verDetalle(venta)" class="btn-info">Ver Detalle</button>
+            @if (venta.estado === 'REGISTRADA') {
+              <button (click)="anular(venta.id)" class="btn-delete">Anular</button>
+            }
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="7" class="text-center">No hay ventas registradas.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+@if (ventaSeleccionada()) {
+  <div class="modal-overlay" (click)="cerrarDetalle()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Detalle de Venta #{{ ventaSeleccionada()?.id }}</h3>
+        <button class="btn-close" (click)="cerrarDetalle()">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="grid-2">
+          <p><strong>Cliente:</strong> {{ ventaSeleccionada()?.cliente }}</p>
+          <p><strong>Fecha:</strong> {{ ventaSeleccionada()?.fecha | date:'medium' }}</p>
+          <p><strong>T/C Aplicado:</strong> {{ ventaSeleccionada()?.tipoCambio }}</p>
+          <p><strong>Estado:</strong> {{ ventaSeleccionada()?.estado || 'REGISTRADA' }}</p>
+        </div>
+        
+        <table class="data-table mt-2">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>P. Unitario</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (det of ventaSeleccionada()?.detalles; track det.id) {
+              <tr>
+                <td>{{ det.producto }}</td>
+                <td class="text-center">{{ det.cantidad }}</td>
+                <td class="text-right">{{ det.precioUnitario | currency:ventaSeleccionada()?.moneda }}</td>
+                <td class="text-right fw-bold">{{ det.subtotal | currency:ventaSeleccionada()?.moneda }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        
+        <div class="totals-section mt-2">
+          <div class="equivalences-box text-left">
+            <p class="text-muted"><small>Valores contables:</small></p>
+            <p><strong>Equiv. Soles:</strong> {{ ventaSeleccionada()?.totalSoles | currency:'PEN' }}</p>
+            <p><strong>Equiv. Dólares:</strong> {{ ventaSeleccionada()?.totalDolares | currency:'USD' }}</p>
+          </div>
+          
+          <div class="totals-box text-right">
+            <p>Subtotal: {{ ventaSeleccionada()?.subtotal | currency:ventaSeleccionada()?.moneda }}</p>
+            <p>Descuento: {{ ventaSeleccionada()?.descuento | currency:ventaSeleccionada()?.moneda }}</p>
+            <p>IGV (18%): {{ ventaSeleccionada()?.igv | currency:ventaSeleccionada()?.moneda }}</p>
+            <h3 class="text-success m-0 mt-1">Total: {{ ventaSeleccionada()?.total | currency:ventaSeleccionada()?.moneda }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}

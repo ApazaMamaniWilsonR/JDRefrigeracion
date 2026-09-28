@@ -1,0 +1,22 @@
+<header class="header">
+  <h1>
+    <a routerLink="/" class="home-link">
+      <img src="favicon.ico" alt="" height="30" />
+    </a>
+    JD Refrigeración
+  </h1>
+</header>
+
+<div class="body">
+  <aside class="sidebar">
+    <nav>
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+      <a routerLink="/catalogo/categorias" routerLinkActive="active">Categorías</a>
+      <a routerLink="/ventas" routerLinkActive="active">Ventas</a>
+    </nav>
+  </aside>
+
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>
