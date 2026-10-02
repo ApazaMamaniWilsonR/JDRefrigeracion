@@ -86,6 +86,7 @@ Ingresa a tu navegador web y abre Swagger UI:
 | `clientes` | Catálogo | Registro de clientes (persona natural / empresa). |
 | `compras` | Transaccional | Compras (cabecera-detalle) que incrementan el stock. |
 | `ventas` | Transaccional | Ventas (cabecera-detalle) con descuento de stock, IGV y equivalencias en PEN/USD. |
+| `cotizaciones`| Transaccional | (En construcción) Gestión de cotizaciones y propuestas formales. |
 | `facturacion` | Transaccional | (En construcción) Emisión de comprobantes SUNAT a partir de ventas. |
 | `postventa` | Transaccional | (En construcción) Gestión de devoluciones, garantías y notas de crédito. |
 | `notificaciones` | Transversal | (En construcción) Servicio de alertas y correos electrónicos. |
