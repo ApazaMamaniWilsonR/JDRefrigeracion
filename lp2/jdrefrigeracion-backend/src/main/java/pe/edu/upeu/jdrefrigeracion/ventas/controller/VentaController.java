@@ -17,7 +17,10 @@ public class VentaController {
     private final VentaService ventaService;
 
     @GetMapping
-    public List<VentaResponse> listar() {
+    public List<VentaResponse> listar(@RequestParam(required = false) Long clienteId) {
+        if (clienteId != null) {
+            return ventaService.listarPorCliente(clienteId);
+        }
         return ventaService.listar();
     }
 

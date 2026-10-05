@@ -1,4 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';
@@ -26,6 +27,7 @@ export class VentaForm implements OnInit {
   form: FormGroup;
   clientes = signal<Cliente[]>([]);
   productos = signal<Producto[]>([]);
+  clientesLoaded = signal(false);
 
   constructor() {
     this.form = this.fb.group({
@@ -38,7 +40,10 @@ export class VentaForm implements OnInit {
   }
 
   ngOnInit(): void {
-    this.clienteService.listar().subscribe(data => this.clientes.set(data));
+    this.clienteService.listar().subscribe(data => {
+      this.clientes.set(data);
+      this.clientesLoaded.set(true);
+    });
     this.productoService.listar().subscribe(data => this.productos.set(data));
     this.agregarDetalle(); // Add one row by default
   }
@@ -98,10 +103,25 @@ export class VentaForm implements OnInit {
       next: () => {
         this.router.navigate(['/ventas']);
       },
-      error: (err) => {
-        console.error('Error al guardar la venta', err);
-        alert('Error al guardar la venta: ' + (err.error?.message || 'Revisa los datos'));
-      }
+      error: (err: HttpErrorResponse) => this.manejarErrorGuardado(err)
     });
+  }
+
+  private manejarErrorGuardado(err: HttpErrorResponse): void {
+    const mensaje: string = err.error?.message ?? '';
+
+    if (err.status === 404 && mensaje.toLowerCase().includes('cliente')) {
+      alert('El cliente seleccionado ya no existe. La lista se recargará.');
+      this.form.controls['clienteId'].setValue(null);
+      this.clienteService.listar().subscribe(data => this.clientes.set(data));
+    } else if (err.status === 404 && mensaje.toLowerCase().includes('producto')) {
+      alert('Uno de los productos seleccionados ya no existe. Revise su detalle.');
+      this.productoService.listar().subscribe(data => this.productos.set(data));
+    } else if (err.status === 400) {
+      alert('Los datos enviados no son válidos. Revise los campos: ' + mensaje);
+    } else {
+      console.error('Error al guardar la venta', err);
+      alert('No se pudo guardar la venta.');
+    }
   }
 }

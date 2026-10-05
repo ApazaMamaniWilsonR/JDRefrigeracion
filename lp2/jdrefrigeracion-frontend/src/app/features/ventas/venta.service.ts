@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiService } from '../../core/services/api-service';
 import { VentaResponse, VentaRequest } from './venta.model';
@@ -9,8 +9,12 @@ export class VentaService {
   private readonly http = inject(HttpClient);
   private readonly api = inject(ApiService);
 
-  listar(): Observable<VentaResponse[]> {
-    return this.http.get<VentaResponse[]>(this.api.buildUrl('/api/v1/ventas'));
+  listar(clienteId?: number): Observable<VentaResponse[]> {
+    let params = new HttpParams();
+    if (clienteId) {
+      params = params.set('clienteId', clienteId);
+    }
+    return this.http.get<VentaResponse[]>(this.api.buildUrl('/api/v1/ventas'), { params });
   }
 
   buscarPorId(id: number): Observable<VentaResponse> {

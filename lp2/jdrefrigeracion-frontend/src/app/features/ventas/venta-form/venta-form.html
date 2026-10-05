@@ -11,9 +11,15 @@
           <select formControlName="clienteId">
             <option [ngValue]="null">-- Seleccione un Cliente --</option>
             @for (cli of clientes(); track cli.id) {
-              <option [value]="cli.id">{{ cli.numeroDocumento }} - {{ cli.nombres || cli.razonSocial }}</option>
+              <option [ngValue]="cli.id">{{ cli.numeroDocumento }} - {{ cli.nombres || cli.razonSocial }}</option>
             }
           </select>
+          @if (form.controls['clienteId'].touched && form.controls['clienteId'].invalid) {
+            <span class="error-msg">Seleccione un cliente válido.</span>
+          }
+          @if (clientesLoaded() && clientes().length === 0) {
+            <span class="error-msg">No hay clientes registrados. <a routerLink="/clientes">Registra uno primero</a>.</span>
+          }
         </div>
 
         <div class="form-group">
@@ -59,7 +65,7 @@
                 <select formControlName="productoId" class="full-width">
                   <option [ngValue]="null">-- Seleccione --</option>
                   @for (prod of productos(); track prod.id) {
-                    <option [value]="prod.id">{{ prod.nombre }}</option>
+                    <option [ngValue]="prod.id">{{ prod.nombre }}</option>
                   }
                 </select>
               </td>

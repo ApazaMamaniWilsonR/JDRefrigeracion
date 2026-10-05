@@ -45,6 +45,13 @@ public class VentaService {
                 .toList();
     }
 
+    public List<VentaResponse> listarPorCliente(Long clienteId) {
+        return ventaRepository.findByClienteId(clienteId)
+                .stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
     public Venta buscarEntidadPorId(Long id) {
         return ventaRepository.findById(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Venta no encontrada con id: " + id));

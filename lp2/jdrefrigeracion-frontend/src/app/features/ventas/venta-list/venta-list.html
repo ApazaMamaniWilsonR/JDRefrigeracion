@@ -1,7 +1,18 @@
 <div class="list-container">
   <div class="header-actions">
     <h2>Ventas Realizadas</h2>
-    <a routerLink="nuevo" class="btn-primary">Nueva Venta</a>
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      <label>
+        Filtrar por Cliente:
+        <select #filtro (change)="filtrar(+filtro.value)" style="padding: 0.5rem; border-radius: 4px; border: 1px solid #ccc;">
+          <option value="0">Todos los clientes</option>
+          @for (cli of clientes(); track cli.id) {
+            <option [value]="cli.id">{{ cli.nombres || cli.razonSocial }}</option>
+          }
+        </select>
+      </label>
+      <a routerLink="nuevo" class="btn-primary">Nueva Venta</a>
+    </div>
   </div>
 
   <table class="data-table">
