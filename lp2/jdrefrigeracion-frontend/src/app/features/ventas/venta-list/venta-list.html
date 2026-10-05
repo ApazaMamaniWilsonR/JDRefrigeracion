@@ -7,7 +7,7 @@
         <select #filtro (change)="filtrar(+filtro.value)" style="padding: 0.5rem; border-radius: 4px; border: 1px solid #ccc;">
           <option value="0">Todos los clientes</option>
           @for (cli of clientes(); track cli.id) {
-            <option [value]="cli.id">{{ cli.nombres || cli.razonSocial }}</option>
+            <option [value]="cli.id">{{ cli.nombreComercial }}</option>
           }
         </select>
       </label>

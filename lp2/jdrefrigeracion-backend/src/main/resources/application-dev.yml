@@ -2,8 +2,8 @@ spring:
   application:
     name: jdrefrigeracion-backend
   datasource:
-    url: jdbc:oracle:thin:@localhost:1521/FREEPDB1
-    username: JDREFRIG_APP
+    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
+    username: jdrefrigeracion
     password: 123456
     driver-class-name: oracle.jdbc.OracleDriver
   jpa:

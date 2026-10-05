@@ -11,7 +11,7 @@
           <select formControlName="clienteId">
             <option [ngValue]="null">-- Seleccione un Cliente --</option>
             @for (cli of clientes(); track cli.id) {
-              <option [ngValue]="cli.id">{{ cli.numeroDocumento }} - {{ cli.nombres || cli.razonSocial }}</option>
+              <option [ngValue]="cli.id">{{ cli.numeroDocumento }} - {{ cli.nombreComercial }}</option>
             }
           </select>
           @if (form.controls['clienteId'].touched && form.controls['clienteId'].invalid) {
