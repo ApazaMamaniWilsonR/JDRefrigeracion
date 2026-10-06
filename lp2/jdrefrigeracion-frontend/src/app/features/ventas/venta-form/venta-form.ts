@@ -108,7 +108,7 @@ export class VentaForm implements OnInit {
   }
 
   private manejarErrorGuardado(err: HttpErrorResponse): void {
-    const mensaje: string = err.error?.message ?? '';
+    const mensaje: string = err.error?.mensaje ?? err.error?.message ?? '';
 
     if (err.status === 404 && mensaje.toLowerCase().includes('cliente')) {
       alert('El cliente seleccionado ya no existe. La lista se recargará.');
