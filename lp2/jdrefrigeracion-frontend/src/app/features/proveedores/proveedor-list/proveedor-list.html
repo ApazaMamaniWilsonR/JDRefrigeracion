@@ -1,0 +1,71 @@
+<div class="list-container">
+  <div class="header-actions">
+    <div>
+      <h2>Gestión de Proveedores</h2>
+      <p class="subtitle">Directorio de proveedores y distribuidores comerciales</p>
+    </div>
+    <a routerLink="nuevo" class="btn-primary">+ Nuevo Proveedor</a>
+  </div>
+
+  @if (error()) {
+    <div class="error-banner">{{ error() }}</div>
+  }
+
+  @if (cargando()) {
+    <div class="loading-state">Cargando proveedores...</div>
+  } @else {
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tipo</th>
+          <th>Documento</th>
+          <th>Nombre / Razón Social</th>
+          <th>Contacto Vendedor</th>
+          <th>Teléfono / Correo</th>
+          <th>Dirección</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (prov of proveedores(); track prov.id) {
+          <tr>
+            <td>{{ prov.id }}</td>
+            <td>
+              <span class="badge-tipo" [class.empresa]="prov.tipo === 'EMPRESA'">
+                {{ prov.tipo === 'EMPRESA' ? 'EMPRESA' : 'NATURAL' }}
+              </span>
+            </td>
+            <td style="font-family: monospace; font-weight: 600;">
+              {{ getDocumento(prov) }}
+            </td>
+            <td style="font-weight: 600;">{{ prov.nombreORazonSocial }}</td>
+            <td>{{ prov.contactoVendedor || '-' }}</td>
+            <td>
+              @if (prov.telefono) {
+                <div>📞 {{ prov.telefono }}</div>
+              }
+              @if (prov.correo) {
+                <div class="small-text">✉️ {{ prov.correo }}</div>
+              }
+              @if (!prov.telefono && !prov.correo) {
+                <span class="muted">-</span>
+              }
+            </td>
+            <td>{{ prov.direccion || '-' }}</td>
+            <td class="actions-cell">
+              <a [routerLink]="[prov.id]" class="btn-edit">Editar</a>
+              <button (click)="eliminar(prov.id)" class="btn-delete">Eliminar</button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="8" class="text-center" style="padding: 2.5rem; color: #64748b;">
+              No hay proveedores registrados en el sistema.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

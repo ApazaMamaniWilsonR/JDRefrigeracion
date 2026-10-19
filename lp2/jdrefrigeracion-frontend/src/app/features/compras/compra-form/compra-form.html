@@ -1,0 +1,160 @@
+<div class="form-container">
+  <div class="form-header">
+    <div>
+      <h2>Registrar Nueva Compra</h2>
+      <p class="subtitle">Ingreso de mercadería al inventario y registro de factura de compra</p>
+    </div>
+  </div>
+
+  @if (error()) {
+    <div class="error-msg" style="padding: 0.85rem 1rem; background: #fee2e2; border-radius: 6px; margin-bottom: 1.5rem; color: #991b1b; font-weight: 500;">
+      {{ error() }}
+    </div>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <!-- Sección Cabecera -->
+    <div class="section-card">
+      <h3 class="section-title">Datos del Proveedor y Comprobante</h3>
+      
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Proveedor *</label>
+          <select formControlName="proveedorId">
+            <option [ngValue]="null">-- Seleccione un Proveedor --</option>
+            @for (p of proveedores(); track p.id) {
+              <option [ngValue]="p.id">
+                {{ p.nombreORazonSocial }} {{ p.ruc ? '(RUC: ' + p.ruc + ')' : (p.dni ? '(DNI: ' + p.dni + ')' : '') }}
+              </option>
+            }
+          </select>
+          @if (form.get('proveedorId')?.touched && form.get('proveedorId')?.invalid) {
+            <span class="error-text">Debe seleccionar un proveedor.</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>Fecha de Compra *</label>
+          <input type="date" formControlName="fechaCompra" />
+          @if (form.get('fechaCompra')?.touched && form.get('fechaCompra')?.invalid) {
+            <span class="error-text">La fecha de compra es obligatoria.</span>
+          }
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label>N° Factura / Guía / Boleta</label>
+          <input type="text" formControlName="numeroFactura" placeholder="Ej. F001-0004523" />
+        </div>
+
+        <div class="form-group">
+          <label>Moneda *</label>
+          <select formControlName="moneda">
+            <option value="PEN">Soles Peruanos (PEN - S/)</option>
+            <option value="USD">Dólares Americanos (USD - $)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección Detalle de Compra -->
+    <div class="section-card">
+      <div class="details-header">
+        <div>
+          <h3 class="section-title" style="margin: 0;">Detalle de Productos</h3>
+          <p class="section-desc">Agregue los artículos adquiridos para actualizar automáticamente el stock en almacén</p>
+        </div>
+        <button type="button" class="btn-secondary" (click)="agregarDetalle()">
+          + Agregar Fila
+        </button>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width: 45%;">Producto *</th>
+            <th style="width: 15%;" class="text-center">Cantidad *</th>
+            <th style="width: 20%;" class="text-right">Precio Unitario *</th>
+            <th style="width: 15%;" class="text-right">Subtotal</th>
+            <th style="width: 5%;" class="text-center"></th>
+          </tr>
+        </thead>
+        <tbody formArrayName="detalles">
+          @for (control of detalles.controls; track $index; let i = $index) {
+            <tr [formGroupName]="i">
+              <td>
+                <select formControlName="productoId" (change)="onProductoChange(i)" class="table-input">
+                  <option [ngValue]="null">-- Seleccione Producto --</option>
+                  @for (prod of productos(); track prod.id) {
+                    <option [ngValue]="prod.id">
+                      {{ prod.nombre }} (Stock actual: {{ prod.stock }})
+                    </option>
+                  }
+                </select>
+                @if (control.get('productoId')?.touched && control.get('productoId')?.invalid) {
+                  <span class="error-text">Seleccione un producto.</span>
+                }
+              </td>
+              <td>
+                <input
+                  type="number"
+                  min="1"
+                  formControlName="cantidad"
+                  class="table-input text-center"
+                />
+              </td>
+              <td>
+                <div class="input-currency-wrapper">
+                  <span class="currency-prefix">{{ getSimboloMoneda() }}</span>
+                  <input
+                    type="number"
+                    step="0.01"
+                    min="0.01"
+                    formControlName="precioUnitarioCompra"
+                    class="table-input text-right"
+                  />
+                </div>
+              </td>
+              <td class="text-right subtotal-cell">
+                {{ calcularSubtotal(i) | currency: (form.get('moneda')?.value === 'USD' ? 'USD' : 'PEN') : getSimboloMoneda() }}
+              </td>
+              <td class="text-center">
+                <button
+                  type="button"
+                  (click)="removerDetalle(i)"
+                  class="btn-remove-row"
+                  title="Eliminar fila"
+                >
+                  ✕
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <!-- Resumen del Total -->
+      <div class="summary-container">
+        <div class="total-card">
+          <span class="total-label">TOTAL GENERAL</span>
+          <span class="total-value">
+            {{ calcularTotal() | currency: (form.get('moneda')?.value === 'USD' ? 'USD' : 'PEN') : getSimboloMoneda() }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Acciones -->
+    <div class="form-actions">
+      <button
+        type="submit"
+        [disabled]="form.invalid || guardando() || calcularTotal() <= 0"
+        class="btn-success"
+      >
+        {{ guardando() ? 'Guardando Compra...' : '✓ Registrar Compra' }}
+      </button>
+      <a routerLink="/compras" class="btn-cancel">Cancelar</a>
+    </div>
+  </form>
+</div>

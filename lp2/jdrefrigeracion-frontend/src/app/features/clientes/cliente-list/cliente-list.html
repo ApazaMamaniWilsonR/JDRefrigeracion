@@ -1,0 +1,78 @@
+<div class="list-container">
+  <div class="header-actions">
+    <div>
+      <h2>Gestión de Clientes</h2>
+      <p class="subtitle">Administra los clientes naturales y jurídicos de la empresa</p>
+    </div>
+    <a routerLink="nuevo" class="btn-primary">+ Nuevo Cliente</a>
+  </div>
+
+  @if (error()) {
+    <div class="error-banner">{{ error() }}</div>
+  }
+
+  @if (cargando()) {
+    <div class="loading-state">Cargando clientes...</div>
+  } @else {
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tipo</th>
+          <th>N° Doc</th>
+          <th>Nombre / Razón Social</th>
+          <th>Contacto</th>
+          <th>Dirección</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (cliente of clientes(); track cliente.id) {
+          <tr>
+            <td>{{ cliente.id }}</td>
+            <td>
+              <span class="badge-tipo" [class.empresa]="cliente.tipoCliente === 'EMPRESA'">
+                {{ cliente.tipoCliente }}
+              </span>
+            </td>
+            <td style="font-family: monospace; font-weight: 600;">{{ cliente.numeroDocumento }}</td>
+            <td style="font-weight: 600;">
+              {{ getNombreCompleto(cliente) }}
+              @if (cliente.personaContacto) {
+                <div class="small-text">Contacto: {{ cliente.personaContacto }}</div>
+              }
+            </td>
+            <td>
+              @if (cliente.telefono) {
+                <div>📞 {{ cliente.telefono }}</div>
+              }
+              @if (cliente.correo) {
+                <div class="small-text">✉️ {{ cliente.correo }}</div>
+              }
+              @if (!cliente.telefono && !cliente.correo) {
+                <span class="muted">-</span>
+              }
+            </td>
+            <td>{{ cliente.direccion || '-' }}</td>
+            <td>
+              <span class="badge" [style.background]="cliente.activo !== false ? '#dcfce7' : '#fee2e2'" [style.color]="cliente.activo !== false ? '#166534' : '#991b1b'">
+                {{ cliente.activo !== false ? 'ACTIVO' : 'INACTIVO' }}
+              </span>
+            </td>
+            <td class="actions-cell">
+              <a [routerLink]="[cliente.id]" class="btn-edit">Editar</a>
+              <button (click)="eliminar(cliente.id)" class="btn-delete">Eliminar</button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="8" class="text-center" style="padding: 2.5rem; color: #64748b;">
+              No hay clientes registrados en el sistema.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

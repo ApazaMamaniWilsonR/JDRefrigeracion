@@ -1,10 +1,20 @@
 export interface Producto {
-  id: number;
+  id?: number;
   nombre: string;
   descripcion?: string;
   precio: number;
   stock: number;
   stockMinimo?: number;
+  categoriaId?: number;
   categoria?: string;
-  activo: boolean;
+  activo?: boolean;
+}
+
+export interface ProductoRequest {
+  nombre: string;
+  descripcion?: string;
+  precio: number;
+  stock: number;
+  stockMinimo: number;
+  categoriaId: number;
 }

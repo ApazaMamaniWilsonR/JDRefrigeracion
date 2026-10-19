@@ -1,0 +1,99 @@
+.form-container {
+  max-width: 700px;
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  margin: 1.5rem auto;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  color: #334155;
+  font-size: 0.9rem;
+}
+
+input, textarea, select {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.15s ease-in-out;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.error-msg {
+  color: #dc2626;
+  font-size: 0.85rem;
+  margin-top: 0.35rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn-success {
+  background-color: #16a34a;
+  color: white;
+  border: none;
+  padding: 0.65rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.btn-success:hover:not(:disabled) {
+  background-color: #15803d;
+}
+
+.btn-success:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.btn-cancel {
+  display: inline-block;
+  padding: 0.6rem 1.25rem;
+  background-color: #f1f5f9;
+  color: #475569;
+  text-decoration: none;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.btn-cancel:hover {
+  background-color: #e2e8f0;
+  color: #1e293b;
+}

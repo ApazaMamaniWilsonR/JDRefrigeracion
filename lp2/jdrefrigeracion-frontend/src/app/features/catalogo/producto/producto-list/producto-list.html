@@ -1,0 +1,50 @@
+<div class="list-container">
+  <div class="header-actions">
+    <h2>Inventario - Productos</h2>
+    <a routerLink="nuevo" class="btn-primary">+ Nuevo Producto</a>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Categoría</th>
+        <th>Precio</th>
+        <th>Stock Actual</th>
+        <th>Stock Mínimo</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (prod of productos(); track prod.id) {
+        <tr>
+          <td>{{ prod.id }}</td>
+          <td style="font-weight: 600;">{{ prod.nombre }}</td>
+          <td>{{ prod.categoria || '-' }}</td>
+          <td class="text-right" style="font-weight: 600;">{{ prod.precio | currency:'PEN':'S/ ' }}</td>
+          <td class="text-center">
+            <span [style.color]="prod.stock <= (prod.stockMinimo || 0) ? '#dc2626' : '#16a34a'" style="font-weight: bold;">
+              {{ prod.stock }}
+            </span>
+          </td>
+          <td class="text-center">{{ prod.stockMinimo || 0 }}</td>
+          <td>
+            <span class="badge" [style.background]="prod.activo ? '#dcfce7' : '#fee2e2'" [style.color]="prod.activo ? '#166534' : '#991b1b'" style="padding: 2px 6px; border-radius: 4px; font-size: 0.8rem;">
+              {{ prod.activo ? 'ACTIVO' : 'INACTIVO' }}
+            </span>
+          </td>
+          <td class="actions-cell">
+            <a [routerLink]="[prod.id]" class="btn-edit">Editar</a>
+            <button (click)="eliminar(prod.id)" class="btn-delete">Eliminar</button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="8" class="text-center" style="padding: 2rem;">No hay productos registrados en el inventario.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,51 @@
+.reporte-ventas {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reporte-ventas thead th {
+  text-align: left;
+  padding: 0.75rem 0.5rem;
+  border-bottom: 2px solid #334155;
+  color: #1e293b;
+  font-size: 0.9rem;
+}
+
+.reporte-ventas .fila-venta {
+  border-top: 2px solid #cbd5e1;
+}
+
+.reporte-ventas .fila-venta td {
+  padding: 0.75rem 0.5rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.reporte-ventas .fila-detalle td {
+  padding: 0.25rem 0.5rem 1rem 1.5rem;
+}
+
+.tabla-detalle {
+  width: 100%;
+  background: #f8fafc;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  border-collapse: collapse;
+}
+
+.tabla-detalle th {
+  text-align: left;
+  font-size: 0.85em;
+  font-weight: 600;
+  color: #475569;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #cbd5e1;
+  background: #f1f5f9;
+}
+
+.tabla-detalle td {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9em;
+  color: #334155;
+  border-bottom: 1px solid #f1f5f9;
+}

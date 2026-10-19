@@ -1,0 +1,133 @@
+<div class="reporte-container" style="padding: 1.5rem; max-width: 1200px; margin: 0 auto;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+    <h2>Reporte y Consulta de Ventas (Agregados y Detalle Real)</h2>
+    <a routerLink="/ventas/nuevo" class="btn-primary" style="background: #2563eb; color: white; padding: 0.5rem 1rem; border-radius: 4px; text-decoration: none; font-weight: 500;">
+      + Nueva Venta
+    </a>
+  </div>
+
+  @if (loading()) {
+    <p>Cargando reporte...</p>
+  }
+  @if (error()) {
+    <div class="alert alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 0.75rem; border-radius: 4px; margin-bottom: 1rem;">
+      {{ error() }}
+    </div>
+  }
+
+  <!-- Barra de Filtros -->
+  <div class="filtros-bar" style="display: flex; gap: 1rem; align-items: flex-end; background: #f8fafc; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; border: 1px solid #e2e8f0; flex-wrap: wrap;">
+    <div>
+      <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem;">Filtrar por Estado:</label>
+      <select #filtro (change)="filtrarPorEstado(filtro.value)" style="padding: 0.5rem; border-radius: 4px; border: 1px solid #cbd5e1; min-width: 150px;">
+        <option value="">Todos</option>
+        <option value="REGISTRADA">Registrada</option>
+        <option value="ANULADA">Anulada</option>
+        <option value="FACTURADA">Facturada</option>
+      </select>
+    </div>
+
+    <div>
+      <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem;">Desde:</label>
+      <input type="date" #desde style="padding: 0.5rem; border-radius: 4px; border: 1px solid #cbd5e1;" />
+    </div>
+
+    <div>
+      <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem;">Hasta:</label>
+      <input type="date" #hasta style="padding: 0.5rem; border-radius: 4px; border: 1px solid #cbd5e1;" />
+    </div>
+
+    <button type="button" (click)="filtrarPorFecha(desde.value, hasta.value)" style="background: #0284c7; color: white; border: none; padding: 0.55rem 1rem; border-radius: 4px; cursor: pointer; font-weight: 500;">
+      Filtrar por fecha
+    </button>
+  </div>
+
+  @if (!loading()) {
+    <!-- Panel de Agregados del Negocio (Calculados con Signals) -->
+    <section class="agregados-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 4px;">
+        <div style="font-size: 0.85rem; color: #64748b; font-weight: 600;">CANTIDAD DE VENTAS</div>
+        <div style="font-size: 1.5rem; font-weight: bold; color: #1e293b; margin-top: 0.25rem;">{{ totalVentas() }}</div>
+      </div>
+      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #10b981; padding: 1rem; border-radius: 4px;">
+        <div style="font-size: 0.85rem; color: #64748b; font-weight: 600;">MONTO TOTAL</div>
+        <div style="font-size: 1.5rem; font-weight: bold; color: #059669; margin-top: 0.25rem;">{{ montoTotal() | currency:'PEN':'S/ ' }}</div>
+      </div>
+      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #f59e0b; padding: 1rem; border-radius: 4px;">
+        <div style="font-size: 0.85rem; color: #64748b; font-weight: 600;">TICKET PROMEDIO</div>
+        <div style="font-size: 1.5rem; font-weight: bold; color: #d97706; margin-top: 0.25rem;">{{ ticketPromedio() | currency:'PEN':'S/ ' }}</div>
+      </div>
+    </section>
+
+    <!-- Tabla Principal con Detalle Real Anidado -->
+    <table class="reporte-ventas">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Cliente</th>
+          <th>Estado</th>
+          <th>Líneas</th>
+          <th>Total</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (venta of ventas(); track venta.id) {
+          <tr class="fila-venta">
+            <td>{{ venta.fecha | date:'short' }}</td>
+            <td>{{ venta.cliente }}</td>
+            <td>
+              <span class="badge" 
+                    [class.badge-success]="venta.estado === 'REGISTRADA' || venta.estado === 'FACTURADA'" 
+                    [class.badge-danger]="venta.estado === 'ANULADA'"
+                    style="padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.85rem;"
+                    [style.background]="venta.estado === 'ANULADA' ? '#fee2e2' : '#dcfce7'"
+                    [style.color]="venta.estado === 'ANULADA' ? '#991b1b' : '#166534'">
+                {{ venta.estado }}
+              </span>
+            </td>
+            <td>{{ venta.detalles.length }}</td>
+            <td style="font-weight: 700;">{{ venta.total | currency:venta.moneda:'S/ ' }}</td>
+            <td>
+              @if (venta.estado === 'REGISTRADA') {
+                <button type="button" (click)="anular(venta.id)" style="background: #ef4444; color: white; border: none; padding: 0.35rem 0.75rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">
+                  Anular
+                </button>
+              }
+            </td>
+          </tr>
+          <tr class="fila-detalle">
+            <td colspan="6" style="padding-bottom: 1.25rem;">
+              <table class="tabla-detalle">
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th style="width: 100px; text-align: center;">Cantidad</th>
+                    <th style="width: 140px; text-align: right;">Precio Unitario</th>
+                    <th style="width: 140px; text-align: right;">Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (detalle of venta.detalles; track detalle.productoId) {
+                    <tr>
+                      <td>{{ detalle.producto }}</td>
+                      <td style="text-align: center;">{{ detalle.cantidad }}</td>
+                      <td style="text-align: right;">{{ detalle.precioUnitario | currency:venta.moneda:'S/ ' }}</td>
+                      <td style="text-align: right; font-weight: 600;">{{ detalle.subtotal | currency:venta.moneda:'S/ ' }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="6" style="text-align: center; padding: 2rem; color: #64748b;">
+              No hay ventas registradas para este filtro.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
