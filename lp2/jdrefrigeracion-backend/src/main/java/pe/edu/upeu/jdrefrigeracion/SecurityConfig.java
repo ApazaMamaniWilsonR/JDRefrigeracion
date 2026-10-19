@@ -69,6 +69,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/cotizaciones/**", "/api/v1/pagos/**").hasAnyRole("VENDEDOR", "SUPERVISOR", "ADMIN")
                         .requestMatchers("/api/v1/postventa/**", "/api/v1/notificaciones/**", "/api/v1/comprobantes/**").hasAnyRole("VENDEDOR", "SUPERVISOR", "ADMIN")
 
+                        // Perfil de usuario autenticado
+                        .requestMatchers("/api/v1/auth/perfil").authenticated()
+
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2

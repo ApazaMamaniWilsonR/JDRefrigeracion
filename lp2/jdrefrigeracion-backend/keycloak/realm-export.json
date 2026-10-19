@@ -40,13 +40,7 @@
       "protocol": "openid-connect",
       "standardFlowEnabled": true,
       "directAccessGrantsEnabled": true,
-      "rootUrl": "",
-      "baseUrl": "",
       "redirectUris": [
-        "http://localhost:4200/*",
-        "http://localhost:5173/*"
-      ],
-      "postLogoutRedirectUris": [
         "http://localhost:4200/*",
         "http://localhost:5173/*"
       ],
@@ -54,7 +48,10 @@
         "http://localhost:4200",
         "http://localhost:5173",
         "+"
-      ]
+      ],
+      "attributes": {
+        "post.logout.redirect.uris": "http://localhost:4200/*##http://localhost:5173/*##+"
+      }
     },
     {
       "clientId": "jdrefrigeracion-frontend",
@@ -68,15 +65,14 @@
         "http://localhost:4200/*",
         "http://localhost:5173/*"
       ],
-      "postLogoutRedirectUris": [
-        "http://localhost:4200/*",
-        "http://localhost:5173/*"
-      ],
       "webOrigins": [
         "http://localhost:4200",
         "http://localhost:5173",
         "+"
-      ]
+      ],
+      "attributes": {
+        "post.logout.redirect.uris": "http://localhost:4200/*##http://localhost:5173/*##+"
+      }
     }
   ],
   "users": [
