@@ -1,0 +1,156 @@
+{
+  "id": "bomerp",
+  "realm": "bomerp",
+  "displayName": "JD Refrigeración / BomERP",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "roles": {
+    "realm": [
+      {
+        "name": "ADMIN",
+        "description": "Administrador del sistema",
+        "composite": false,
+        "clientRole": false
+      },
+      {
+        "name": "SUPERVISOR",
+        "description": "Supervisor de ventas e inventario",
+        "composite": false,
+        "clientRole": false
+      },
+      {
+        "name": "VENDEDOR",
+        "description": "Vendedor comercial",
+        "composite": false,
+        "clientRole": false
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "bomerp-frontend",
+      "name": "BomERP Frontend SPA",
+      "enabled": true,
+      "publicClient": true,
+      "protocol": "openid-connect",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "rootUrl": "",
+      "baseUrl": "",
+      "redirectUris": [
+        "http://localhost:4200/*",
+        "http://localhost:5173/*"
+      ],
+      "postLogoutRedirectUris": [
+        "http://localhost:4200/*",
+        "http://localhost:5173/*"
+      ],
+      "webOrigins": [
+        "http://localhost:4200",
+        "http://localhost:5173",
+        "+"
+      ]
+    },
+    {
+      "clientId": "jdrefrigeracion-frontend",
+      "name": "JD Refrigeración Frontend SPA",
+      "enabled": true,
+      "publicClient": true,
+      "protocol": "openid-connect",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "redirectUris": [
+        "http://localhost:4200/*",
+        "http://localhost:5173/*"
+      ],
+      "postLogoutRedirectUris": [
+        "http://localhost:4200/*",
+        "http://localhost:5173/*"
+      ],
+      "webOrigins": [
+        "http://localhost:4200",
+        "http://localhost:5173",
+        "+"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "vendedor1",
+      "enabled": true,
+      "email": "vendedor1@bomerp.com",
+      "firstName": "Vendedor",
+      "lastName": "Uno",
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Bomerp2026!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "VENDEDOR"
+      ]
+    },
+    {
+      "username": "vendedor2",
+      "enabled": true,
+      "email": "vendedor2@bomerp.com",
+      "firstName": "Vendedor",
+      "lastName": "Dos",
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Bomerp2026!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "VENDEDOR"
+      ]
+    },
+    {
+      "username": "supervisor",
+      "enabled": true,
+      "email": "supervisor@bomerp.com",
+      "firstName": "Supervisor",
+      "lastName": "Uno",
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Bomerp2026!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "SUPERVISOR"
+      ]
+    },
+    {
+      "username": "admin",
+      "enabled": true,
+      "email": "admin@bomerp.com",
+      "firstName": "Admin",
+      "lastName": "Uno",
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Bomerp2026!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "ADMIN"
+      ]
+    }
+  ]
+}

@@ -52,4 +52,14 @@ public class CustomExceptionHandler {
         body.put("message", ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
     }
+
+    @ExceptionHandler(AccesoDenegadoException.class)
+    public ResponseEntity<Map<String, Object>> handleAccesoDenegado(AccesoDenegadoException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", Instant.now().toString());
+        body.put("status", HttpStatus.FORBIDDEN.value());
+        body.put("error", "Forbidden");
+        body.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(body);
+    }
 }
