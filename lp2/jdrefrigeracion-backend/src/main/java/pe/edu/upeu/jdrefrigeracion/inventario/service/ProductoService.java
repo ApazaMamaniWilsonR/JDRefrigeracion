@@ -73,7 +73,9 @@ public class ProductoService {
         Producto producto = buscarEntidadPorId(productoId);
 
         if (producto.getStock() < cantidad) {
-            throw new IllegalArgumentException("Stock insuficiente para el producto: " + producto.getNombre());
+            throw new pe.edu.upeu.jdrefrigeracion.exception.StockInsuficienteException(
+                    "Stock insuficiente para el producto: " + producto.getNombre() + " (solicitado: " + cantidad + ", disponible: " + producto.getStock() + ")"
+            );
         }
 
         producto.setStock(producto.getStock() - cantidad);

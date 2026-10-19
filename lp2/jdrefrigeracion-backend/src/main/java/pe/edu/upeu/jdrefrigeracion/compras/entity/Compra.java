@@ -28,7 +28,7 @@ public class Compra {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "proveedor_id", nullable = false)
-    @JsonIgnore // Prevent infinite recursion during JSON serialization
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Proveedor proveedor;
 
     @Column(name = "fecha_compra", nullable = false)
