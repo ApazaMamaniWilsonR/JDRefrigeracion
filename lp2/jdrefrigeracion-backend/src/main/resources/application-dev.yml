@@ -1,6 +1,11 @@
 spring:
   application:
     name: jdrefrigeracion-backend
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:38080/realms/bomerp}
   datasource:
     url: jdbc:oracle:thin:@localhost:1521/XEPDB1
     username: jdrefrigeracion

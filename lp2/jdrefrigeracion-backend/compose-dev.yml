@@ -1,0 +1,46 @@
+name: jdrefrigeracion-backend-dev
+
+services:
+  keycloak-db:
+    image: postgres:17-alpine
+    container_name: jdrefrigeracion-keycloak-db
+    restart: unless-stopped
+    ports:
+      - "35432:5432"
+    environment:
+      POSTGRES_DB: jdrefrigeracion_keycloak
+      POSTGRES_USER: jdrefrigeracion_keycloak
+      POSTGRES_PASSWORD: 123456
+    volumes:
+      - keycloak-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jdrefrigeracion_keycloak -d jdrefrigeracion_keycloak"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.8.0
+    container_name: jdrefrigeracion-keycloak
+    restart: unless-stopped
+    command: start-dev --import-realm
+    depends_on:
+      keycloak-db:
+        condition: service_healthy
+    ports:
+      - "38080:8080"
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin123
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/jdrefrigeracion_keycloak
+      KC_DB_USERNAME: jdrefrigeracion_keycloak
+      KC_DB_PASSWORD: 123456
+    volumes:
+      - keycloak-data:/opt/keycloak/data
+      - ./keycloak/realm-export.json:/opt/keycloak/data/import/realm-export.json:ro
+
+volumes:
+  keycloak-data:
+  keycloak-db-data:
