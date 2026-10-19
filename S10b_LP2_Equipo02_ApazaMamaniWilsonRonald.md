@@ -1,9 +1,12 @@
-# S10_LP2_Equipo_ApazaMamaniWilson.pdf
+# S10b - Reemplazo de seguridad por Keycloak
 
 **Datos del estudiante**
 
-- **Nombre:** Wilson R. Apaza Mamani
-- **Equipo:** [JD Devs / JD Refrigeración S.A.C.]
+- **Nombres:** 
+- Chambi Sirena Yoel Wagner
+- Magaño Quispe Aron Rodrigo
+- Apaza Mamani Wilson Ronald 
+- **Equipo:** [CherryTree]
 - **Sesión:** S10 / S10b - Seguridad Backend: Autenticación OAuth2 / JWT con Keycloak y Autorización por Roles
 - **Rol o aporte realizado:** Arquitectura de Seguridad OAuth2 Resource Server, Módulos de Catálogo, Inventario, Compras, Posventa y Control de Acceso por Dueño (RN8).
 - **Link de GitHub:** https://github.com/ApazaMamaniWilsonR/JDRefrigeracion
@@ -13,6 +16,8 @@
 ## Evidencia técnica
 
 ### 1. Login y token (Keycloak OIDC)
+
+**[![Captura 1: Usuarios y roles en Keycloak](image-9.png): Usuarios del realm bomerp y obtención de Token JWT]**
 
 - **Explicación:** Se implementó la arquitectura de Identity Provider (IdP) externo con **Keycloak 26+**, corriendo en contenedor Docker independiente (`puerto 38080`) con almacenamiento persistente en PostgreSQL (`puerto 35432`). Se configuró el realm `bomerp` con clientes OIDC (`bomerp-frontend` y `jdrefrigeracion-frontend`) habilitando *Direct Access Grants* y *Standard Flow*. Al autenticar al usuario `vendedor1` con credenciales `Bomerp2026!`, Keycloak emite un token JWT firmado con algoritmo asimétrico **RS256**. El token contiene el claim estándar `sub` con el UUID único del vendedor y la lista de authorities en `realm_access.roles`.
 
@@ -43,6 +48,8 @@ $login = Invoke-RestMethod -Method Post `
 
 ### 2. Protección del módulo no transaccional (Catálogo / Productos)
 
+**[![Captura 2: Catálogo protegido](image-10.png): Consulta permitida 200 OK y Creación bloqueada 403 Forbidden para Vendedor]**
+
 - **Explicación:** El módulo no transaccional `Catálogo` (`Producto` y `Categoria`) fue protegido mediante `SecurityConfig.java`. Cualquier cliente no autenticado que intente consultar productos recibe HTTP `401 Unauthorized`. Un usuario autenticado con rol `VENDEDOR` tiene autorización para consultar (`GET /api/v1/productos` $\rightarrow$ `200 OK`), pero al intentar crear o modificar un producto (`POST /api/v1/productos`) el servidor deniega el acceso con HTTP `403 Forbidden` porque dicha acción exige estrictamente el rol `ADMIN`.
 
 - **Comandos de Verificación:**
@@ -61,7 +68,7 @@ Write-Host "Consulta exitosa: 200 OK - Productos obtenidos: $($prods.Count)"
 
 # C. Modificación denegada a VENDEDOR -> 403 Forbidden
 try {
-  $body = '{"nombre":"Compresor Test","precio":150.0,"stock":10,"stockMinimo":2,"categoriaId":1,"unidadMedida":"UNIDAD"}'
+  $body = '{"nombre":"Test","precio":50,"stock":10,"stockMinimo":1,"categoriaId":1}'
   Invoke-RestMethod -Method Post -Uri "http://localhost:8081/api/v1/productos" `
     -Headers @{ Authorization = "Bearer $tVendedor1"; "Content-Type"="application/json" } -Body $body
 } catch {
@@ -73,28 +80,30 @@ try {
 
 ### 3. Modificación permitida (Rol Administrador)
 
+**[![Captura 3: Modificación permitida](image-11.png): Creación de producto con rol ADMIN respondiendo 201 Created]**
+
 - **Explicación:** Al realizar la misma operación de registro de producto (`POST /api/v1/productos`), pero enviando en la cabecera `Authorization: Bearer <token>` el token del usuario `admin` (quien posee el rol `ROLE_ADMIN` mapeado por `JwtAuthenticationConverter`), Spring Security valida la autoridad requerida (`hasRole('ADMIN')`) y delega la ejecución al servicio, persistiendo el producto en la base de datos Oracle XE y respondiendo con HTTP `201 Created`.
 
 - **Comando de Verificación con Rol ADMIN:**
 ```powershell
 $headersAdmin = @{ Authorization = "Bearer $tAdmin"; "Content-Type" = "application/json" }
-$bodyProd = '{"nombre":"Termostato Digital KC","descripcion":"Sensor Keycloak","precio":85.50,"stock":15,"stockMinimo":2,"categoriaId":1,"unidadMedida":"UNIDAD"}'
+$bodyProd = '{"nombre":"Valvula Expansiva TXV","descripcion":"Valvula Danfoss","precio":180.0,"stock":25,"stockMinimo":5,"categoriaId":1,"unidadMedida":"UNIDAD"}'
 
-$prod = Invoke-RestMethod -Method Post -Uri "http://localhost:8081/api/v1/productos" `
+$prodCreado = Invoke-RestMethod -Method Post -Uri "http://localhost:8081/api/v1/productos" `
   -Headers $headersAdmin -Body $bodyProd
 
-Write-Host "Producto registrado: 201 Created - ID: $($prod.id) - Nombre: $($prod.nombre)"
+Write-Host "Producto registrado: 201 Created - ID: $($prodCreado.id) - Nombre: $($prodCreado.nombre)"
 ```
 
 - **Respuesta:**
 ```json
 {
-  "id": 21,
-  "nombre": "Termostato Digital KC",
-  "descripcion": "Sensor Keycloak",
-  "precio": 85.50,
-  "stock": 15,
-  "stockMinimo": 2,
+  "id": 41,
+  "nombre": "Valvula Expansiva TXV",
+  "descripcion": "Valvula Danfoss",
+  "precio": 180.0,
+  "stock": 25,
+  "stockMinimo": 5,
   "unidadMedida": "UNIDAD",
   "categoriaId": 1
 }
@@ -103,6 +112,8 @@ Write-Host "Producto registrado: 201 Created - ID: $($prod.id) - Nombre: $($prod
 ---
 
 ### 4. Perfil desde el JWT (`GET /api/v1/auth/perfil`)
+
+**[![Captura 4: Perfil desde JWT](image-12.png): Consulta a /api/v1/auth/perfil extrayendo claims sin consultar BD]**
 
 - **Explicación:** Se implementó el endpoint `GET /api/v1/auth/perfil` en `PerfilController.java` inyectando `@AuthenticationPrincipal Jwt jwt`. Este endpoint extrae directamente los claims del token en memoria (sin ejecutar consultas redundantes a la base de datos): el identificador de usuario (`sub`), nombre preferido (`preferred_username`), correo electrónico (`email`) y las autoridades del realm (`realm_access.roles`).
 
@@ -129,6 +140,8 @@ $perfil | ConvertTo-Json
 
 ### 5. Matriz de accesos y Control de Acceso por Dueño (RN8)
 
+**[![Captura 5: Regla RN8 en Ventas](image-13.png): Venta propia 200 OK, Venta ajena 403 Forbidden y Resumen con Supervisor]**
+
 - **Explicación:** Se implementó la regla de negocio **RN8**:
   1. En `VentaController.java`, al registrar una venta (`POST /api/v1/ventas`) se obtiene el `vendedorId` directamente de `jwt.getSubject()` (UUID emitido por Keycloak), impidiendo que el cliente envíe o suplante la identidad del vendedor.
   2. En `listar` y `buscarPorId`, se evalúa mediante `esVendedor(jwt)` si el usuario es un vendedor. Si lo es, únicamente puede listar y obtener sus propias ventas. Si `vendedor2` intenta acceder mediante `GET /api/v1/ventas/{id}` a una venta perteneciente a `vendedor1`, el sistema lanza `AccesoDenegadoException`, respondiendo con HTTP `403 Forbidden`.
@@ -138,38 +151,39 @@ $perfil | ConvertTo-Json
 ```powershell
 # 1. Venta registrada por Vendedor 1 (guarda vendedorId = sub) -> 201 Created
 $headersV1 = @{ Authorization = "Bearer $tVendedor1"; "Content-Type" = "application/json" }
-$bodyVenta = '{"clienteId":1,"moneda":"PEN","tipoCambio":3.75,"descuento":0,"detalles":[{"productoId":21,"cantidad":1}]}'
-$venta = Invoke-RestMethod -Method Post -Uri "http://localhost:8081/api/v1/ventas" -Headers $headersV1 -Body $bodyVenta
-Write-Host "Venta registrada por Vendedor 1: ID $($venta.id)"
+$bodyVenta = "{`"clienteId`":1,`"moneda`":`"PEN`",`"tipoCambio`":3.75,`"descuento`":0,`"detalles`":[{`"productoId`":41,`"cantidad`":2}]}"
+$nuevaVenta = Invoke-RestMethod -Method Post -Uri "http://localhost:8081/api/v1/ventas" -Headers $headersV1 -Body $bodyVenta
+Write-Host "Venta registrada por Vendedor 1: ID $($nuevaVenta.id) - Total: $($nuevaVenta.total)"
 
 # 2. Vendedor 1 consulta su propia venta -> 200 OK
-$vPropia = Invoke-RestMethod -Method Get -Uri "http://localhost:8081/api/v1/ventas/$($venta.id)" `
+$vPropia = Invoke-RestMethod -Method Get -Uri "http://localhost:8081/api/v1/ventas/$($nuevaVenta.id)" `
   -Headers @{ Authorization = "Bearer $tVendedor1" }
-Write-Host "Consulta de venta propia (Vendedor 1): 200 OK"
+Write-Host "Vendedor 1 consulta su venta propia: 200 OK (ID: $($vPropia.id))"
 
 # 3. Vendedor 2 intenta consultar la venta de Vendedor 1 -> 403 Forbidden
 try {
-  Invoke-RestMethod -Method Get -Uri "http://localhost:8081/api/v1/ventas/$($venta.id)" `
+  Invoke-RestMethod -Method Get -Uri "http://localhost:8081/api/v1/ventas/$($nuevaVenta.id)" `
     -Headers @{ Authorization = "Bearer $tVendedor2" }
 } catch {
-  Write-Host "RN8 - Venta ajena bloqueada a Vendedor 2: " $_.Exception.Response.StatusCode.value__ # 403
+  Write-Host "RN8 en acción: Vendedor 2 bloqueado con estado $($_.Exception.Response.StatusCode.value__) Forbidden" # 403
 }
 
 # 4. Supervisor consulta la venta de Vendedor 1 -> 200 OK
-$vSup = Invoke-RestMethod -Method Get -Uri "http://localhost:8081/api/v1/ventas/$($venta.id)" `
+$vSup = Invoke-RestMethod -Method Get -Uri "http://localhost:8081/api/v1/ventas/$($nuevaVenta.id)" `
   -Headers @{ Authorization = "Bearer $tSupervisor" }
-Write-Host "Consulta de Supervisor: 200 OK"
+Write-Host "Supervisor consulta la venta de Vendedor 1: 200 OK (ID: $($vSup.id))"
 
 # 5. Resumen de ventas bloqueado a Vendedor 1 (403) y permitido a Supervisor (200 OK)
 try {
   Invoke-RestMethod -Method Get -Uri "http://localhost:8081/api/v1/ventas/resumen" `
     -Headers @{ Authorization = "Bearer $tVendedor1" }
 } catch {
-  Write-Host "Resumen denegado a Vendedor 1: " $_.Exception.Response.StatusCode.value__ # 403
+  Write-Host "Resumen de ventas denegado a Vendedor 1: $($_.Exception.Response.StatusCode.value__) Forbidden" # 403
 }
+
 $resumen = Invoke-RestMethod -Method Get -Uri "http://localhost:8081/api/v1/ventas/resumen" `
   -Headers @{ Authorization = "Bearer $tSupervisor" }
-Write-Host "Resumen permitido a Supervisor: 200 OK"
+Write-Host "Resumen de ventas permitido a Supervisor: 200 OK (Total ventas: $($resumen.agregado.totalVentas), Monto: $($resumen.agregado.montoTotal))"
 ```
 
 - **Tabla de Matriz de Accesos Verificada:**
