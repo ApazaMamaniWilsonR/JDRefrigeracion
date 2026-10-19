@@ -17,11 +17,13 @@ public class VentaController {
     private final VentaService ventaService;
 
     @GetMapping
-    public List<VentaResponse> listar(@RequestParam(required = false) Long clienteId) {
-        if (clienteId != null) {
-            return ventaService.listarPorCliente(clienteId);
-        }
-        return ventaService.listar();
+    public List<VentaResponse> listar(
+            @RequestParam(required = false) Long clienteId,
+            @RequestParam(required = false) pe.edu.upeu.jdrefrigeracion.ventas.entity.EstadoVenta estado,
+            @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime desde,
+            @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime hasta
+    ) {
+        return ventaService.listarConFiltros(clienteId, estado, desde, hasta);
     }
 
     @GetMapping("/{id}")
@@ -34,8 +36,13 @@ public class VentaController {
         return ventaService.registrar(request);
     }
 
+    @PatchMapping("/{id}/anular")
+    public org.springframework.http.ResponseEntity<VentaResponse> anularPatch(@PathVariable Long id) {
+        return org.springframework.http.ResponseEntity.ok(ventaService.anular(id));
+    }
+
     @PostMapping("/{id}/anular")
-    public void anular(@PathVariable Long id) {
-        ventaService.anular(id);
+    public org.springframework.http.ResponseEntity<VentaResponse> anularPost(@PathVariable Long id) {
+        return org.springframework.http.ResponseEntity.ok(ventaService.anular(id));
     }
 }

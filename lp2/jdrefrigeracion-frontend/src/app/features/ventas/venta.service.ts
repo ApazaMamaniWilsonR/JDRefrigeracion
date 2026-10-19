@@ -9,10 +9,19 @@ export class VentaService {
   private readonly http = inject(HttpClient);
   private readonly api = inject(ApiService);
 
-  listar(clienteId?: number): Observable<VentaResponse[]> {
+  listar(clienteId?: number, estado?: string, desde?: string, hasta?: string): Observable<VentaResponse[]> {
     let params = new HttpParams();
     if (clienteId) {
       params = params.set('clienteId', clienteId);
+    }
+    if (estado) {
+      params = params.set('estado', estado);
+    }
+    if (desde) {
+      params = params.set('desde', desde);
+    }
+    if (hasta) {
+      params = params.set('hasta', hasta);
     }
     return this.http.get<VentaResponse[]>(this.api.buildUrl('/api/v1/ventas'), { params });
   }
@@ -25,7 +34,7 @@ export class VentaService {
     return this.http.post<VentaResponse>(this.api.buildUrl('/api/v1/ventas'), request);
   }
 
-  anular(id: number): Observable<void> {
-    return this.http.post<void>(this.api.buildUrl(`/api/v1/ventas/${id}/anular`), {});
+  anular(id: number): Observable<VentaResponse> {
+    return this.http.patch<VentaResponse>(this.api.buildUrl(`/api/v1/ventas/${id}/anular`), {});
   }
 }

@@ -1,0 +1,100 @@
+<div class="form-container">
+  <h2>{{ proveedorId ? 'Editar Proveedor' : 'Nuevo Proveedor' }}</h2>
+
+  @if (error()) {
+    <div class="error-msg" style="padding: 0.75rem; background: #fee2e2; border-radius: 4px; margin-bottom: 1rem;">
+      {{ error() }}
+    </div>
+  }
+
+  @if (mensajeConsulta()) {
+    <div style="padding: 0.75rem; background: #dcfce7; color: #166534; border-radius: 4px; margin-bottom: 1rem; font-size: 0.9rem;">
+      {{ mensajeConsulta() }}
+    </div>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <div class="grid-2">
+      <div class="form-group">
+        <label>Tipo de Proveedor *</label>
+        <select formControlName="tipo">
+          <option value="EMPRESA">Empresa / Distribuidor (RUC)</option>
+          <option value="PERSONA_NATURAL">Persona Natural (DNI)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>
+          {{ form.controls.tipo.value === 'EMPRESA' ? 'RUC (11 dígitos) *' : 'DNI (8 dígitos) *' }}
+        </label>
+        <div class="input-with-button">
+          @if (form.controls.tipo.value === 'EMPRESA') {
+            <input
+              type="text"
+              formControlName="ruc"
+              placeholder="11 dígitos"
+            />
+          } @else {
+            <input
+              type="text"
+              formControlName="dni"
+              placeholder="8 dígitos"
+            />
+          }
+          <button
+            type="button"
+            class="btn-query"
+            (click)="autocompletar()"
+            [disabled]="consultando() || (form.controls.tipo.value === 'EMPRESA' ? form.controls.ruc.invalid : form.controls.dni.invalid)"
+          >
+            {{ consultando() ? 'Buscando...' : '🔍 Consultar' }}
+          </button>
+        </div>
+        @if (form.controls.tipo.value === 'EMPRESA' && form.controls.ruc.touched && form.controls.ruc.invalid) {
+          <span class="error-msg">El RUC debe tener 11 dígitos numéricos.</span>
+        }
+        @if (form.controls.tipo.value === 'PERSONA_NATURAL' && form.controls.dni.touched && form.controls.dni.invalid) {
+          <span class="error-msg">El DNI debe tener 8 dígitos numéricos.</span>
+        }
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Nombre o Razón Social *</label>
+      <input type="text" formControlName="nombreORazonSocial" placeholder="Ej. Distribuidora Danfoss Perú S.A." />
+      @if (form.controls.nombreORazonSocial.touched && form.controls.nombreORazonSocial.invalid) {
+        <span class="error-msg">El nombre o razón social es obligatorio.</span>
+      }
+    </div>
+
+    <div class="grid-2">
+      <div class="form-group">
+        <label>Contacto / Vendedor</label>
+        <input type="text" formControlName="contactoVendedor" placeholder="Ej. Ing. Roberto Gómez (Asesor Comercial)" />
+      </div>
+
+      <div class="form-group">
+        <label>Teléfono / Celular</label>
+        <input type="text" formControlName="telefono" placeholder="Ej. (01) 456-7890 / 999888777" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Correo Electrónico</label>
+      <input type="email" formControlName="correo" placeholder="ventas@proveedor.com" />
+      @if (form.controls.correo.touched && form.controls.correo.invalid) {
+        <span class="error-msg">Formato de correo no válido.</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label>Dirección Comercial / Almacén</label>
+      <input type="text" formControlName="direccion" placeholder="Av. Industrial 450, Lima" />
+    </div>
+
+    <div class="actions" style="margin-top: 1.5rem;">
+      <button type="submit" [disabled]="form.invalid" class="btn-success">Guardar Proveedor</button>
+      <a routerLink="/proveedores" class="btn-cancel">Cancelar</a>
+    </div>
+  </form>
+</div>

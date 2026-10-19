@@ -41,6 +41,7 @@ public class VentaService {
     public List<VentaResponse> listar() {
         return ventaRepository.findAll()
                 .stream()
+                .sorted(java.util.Comparator.comparing(Venta::getId))
                 .map(this::toResponse)
                 .toList();
     }
@@ -48,6 +49,7 @@ public class VentaService {
     public List<VentaResponse> listarPorCliente(Long clienteId) {
         return ventaRepository.findByClienteId(clienteId)
                 .stream()
+                .sorted(java.util.Comparator.comparing(Venta::getId))
                 .map(this::toResponse)
                 .toList();
     }
@@ -90,7 +92,9 @@ public class VentaService {
             Producto producto = productoService.buscarEntidadPorId(detalleRequest.productoId());
 
             if (producto.getStock() < detalleRequest.cantidad()) {
-                throw new IllegalArgumentException("Stock insuficiente para el producto: " + producto.getNombre());
+                throw new pe.edu.upeu.jdrefrigeracion.exception.StockInsuficienteException(
+                        "Stock insuficiente para el producto: " + producto.getNombre() + " (solicitado: " + detalleRequest.cantidad() + ", disponible: " + producto.getStock() + ")"
+                );
             }
 
             BigDecimal precioUnitario = obtenerPrecioSegunMoneda(
@@ -189,7 +193,9 @@ public class VentaService {
             Producto producto = detalleCotizacion.getProducto();
 
             if (producto.getStock() < detalleCotizacion.getCantidad()) {
-                throw new IllegalArgumentException("Stock insuficiente para el producto: " + producto.getNombre());
+                throw new pe.edu.upeu.jdrefrigeracion.exception.StockInsuficienteException(
+                        "Stock insuficiente para el producto: " + producto.getNombre() + " (solicitado: " + detalleCotizacion.getCantidad() + ", disponible: " + producto.getStock() + ")"
+                );
             }
 
             DetalleVenta detalleVenta = DetalleVenta.builder()
@@ -218,19 +224,32 @@ public class VentaService {
         ventaRepository.save(venta);
     }
 
+    public List<VentaResponse> listarConFiltros(Long clienteId, EstadoVenta estado, LocalDateTime desde, LocalDateTime hasta) {
+        List<Venta> lista = ventaRepository.findAll();
+        return lista.stream()
+                .filter(v -> clienteId == null || (v.getCliente() != null && v.getCliente().getId().equals(clienteId)))
+                .filter(v -> estado == null || v.getEstado() == estado)
+                .filter(v -> desde == null || !v.getFecha().isBefore(desde))
+                .filter(v -> hasta == null || !v.getFecha().isAfter(hasta))
+                .sorted(java.util.Comparator.comparing(Venta::getId))
+                .map(this::toResponse)
+                .toList();
+    }
+
     @Transactional
-    public void anular(Long ventaId) {
+    public VentaResponse anular(Long ventaId) {
         Venta venta = buscarEntidadPorId(ventaId);
         if (venta.getEstado() == EstadoVenta.ANULADA) {
-            throw new IllegalStateException("La venta ya está anulada");
+            throw new pe.edu.upeu.jdrefrigeracion.exception.VentaYaAnuladaException("La venta " + ventaId + " ya está anulada");
         }
-        venta.setEstado(EstadoVenta.ANULADA);
         
         for (DetalleVenta detalle : venta.getDetalles()) {
             productoService.aumentarStock(detalle.getProducto().getId(), detalle.getCantidad());
         }
-        
-        ventaRepository.save(venta);
+
+        venta.setEstado(EstadoVenta.ANULADA);
+        Venta ventaGuardada = ventaRepository.save(venta);
+        return toResponse(ventaGuardada);
     }
 
     private BigDecimal obtenerPrecioSegunMoneda(BigDecimal precioSoles, Moneda moneda, BigDecimal tipoCambio) {

@@ -1,0 +1,135 @@
+<div class="list-container">
+  <div class="header-actions">
+    <div>
+      <h2>Compras y Abastecimiento</h2>
+      <p class="subtitle">Historial de órdenes de compra y recepción de mercadería</p>
+    </div>
+    <a routerLink="nuevo" class="btn-primary">+ Registrar Compra</a>
+  </div>
+
+  @if (error()) {
+    <div class="error-banner">{{ error() }}</div>
+  }
+
+  @if (cargando()) {
+    <div class="loading-state">Cargando compras registradas...</div>
+  } @else {
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Fecha</th>
+          <th>N° Factura</th>
+          <th>Proveedor</th>
+          <th>Moneda</th>
+          <th class="text-right">Total</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (c of compras(); track c.id) {
+          <tr>
+            <td style="font-family: monospace; font-weight: 600;">#{{ c.id }}</td>
+            <td>{{ c.fechaCompra | date:'mediumDate' }}</td>
+            <td>
+              <span class="factura-badge">{{ c.numeroFactura || 'S/N' }}</span>
+            </td>
+            <td style="font-weight: 600;">{{ c.proveedor?.nombreORazonSocial || 'Sin especificar' }}</td>
+            <td>
+              <span class="badge-moneda" [class.usd]="c.moneda === 'USD'">
+                {{ c.moneda === 'USD' ? 'USD ($)' : 'PEN (S/)' }}
+              </span>
+            </td>
+            <td class="text-right total-cell">
+              {{ c.total | currency: (c.moneda === 'USD' ? 'USD' : 'PEN') : (c.moneda === 'USD' ? '$ ' : 'S/ ') }}
+            </td>
+            <td class="text-center actions-cell">
+              <button type="button" (click)="verDetalle(c)" class="btn-info">
+                🔍 Ver Detalle
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="7" class="text-center empty-state">
+              No hay compras registradas en el sistema.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
+
+@if (compraSeleccionada()) {
+  <div class="modal-overlay" (click)="cerrarDetalle()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Detalle de Compra #{{ compraSeleccionada()?.id }}</h3>
+        <button class="btn-close" (click)="cerrarDetalle()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="grid-2 info-grid">
+          <div>
+            <strong>Proveedor:</strong>
+            <p>{{ compraSeleccionada()?.proveedor?.nombreORazonSocial || '-' }}</p>
+          </div>
+          <div>
+            <strong>N° Factura / Comprobante:</strong>
+            <p>{{ compraSeleccionada()?.numeroFactura || 'Sin comprobante' }}</p>
+          </div>
+          <div>
+            <strong>Fecha de Registro:</strong>
+            <p>{{ compraSeleccionada()?.fechaCompra | date:'longDate' }}</p>
+          </div>
+          <div>
+            <strong>Moneda:</strong>
+            <p>{{ compraSeleccionada()?.moneda === 'USD' ? 'Dólares Americanos (USD)' : 'Soles Peruanos (PEN)' }}</p>
+          </div>
+        </div>
+
+        <h4 style="margin: 1.25rem 0 0.5rem 0; color: #334155;">Productos Recibidos</h4>
+        <table class="data-table" style="margin-top: 0.5rem;">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th class="text-center">Cantidad</th>
+              <th class="text-right">Precio Unitario</th>
+              <th class="text-right">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (det of compraSeleccionada()?.detalles; track det.id) {
+              <tr>
+                <td style="font-weight: 500;">
+                  {{ det.producto?.nombre || 'Producto #' + det.productoId }}
+                </td>
+                <td class="text-center" style="font-weight: 600;">{{ det.cantidad }}</td>
+                <td class="text-right">
+                  {{ det.precioUnitarioCompra | currency: (compraSeleccionada()?.moneda === 'USD' ? 'USD' : 'PEN') : (compraSeleccionada()?.moneda === 'USD' ? '$ ' : 'S/ ') }}
+                </td>
+                <td class="text-right" style="font-weight: 600;">
+                  {{ (det.cantidad * det.precioUnitarioCompra) | currency: (compraSeleccionada()?.moneda === 'USD' ? 'USD' : 'PEN') : (compraSeleccionada()?.moneda === 'USD' ? '$ ' : 'S/ ') }}
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="4" class="text-center" style="padding: 1rem; color: #94a3b8;">
+                  Sin información de detalle disponible.
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+
+        <div class="total-summary-box">
+          <span>Total de la Compra:</span>
+          <strong>
+            {{ compraSeleccionada()?.total | currency: (compraSeleccionada()?.moneda === 'USD' ? 'USD' : 'PEN') : (compraSeleccionada()?.moneda === 'USD' ? '$ ' : 'S/ ') }}
+          </strong>
+        </div>
+      </div>
+    </div>
+  </div>
+}

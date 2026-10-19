@@ -1,9 +1,9 @@
-# S08_LP2_EquipoXX_ApazaMamaniWilson.pdf
+# S08_LP2_Equipo02_ApazaMamaniWilsonRonald.pdf
 
 **Datos del estudiante**
 
 - **Nombre:** Wilson R. Apaza Mamani
-- **Equipo:** [Tu Número/Nombre de Equipo]
+- **Equipo:** [02/CHERRY TREE]
 - **Sesión:** S08 - CRUD de Tablas Dependientes
 - **Rol o aporte realizado:** Desarrollo Full Stack del módulo de Ventas y DetalleVenta.
 - **Link de GitHub:** https://github.com/ApazaMamaniWilsonR/JDRefrigeracion
@@ -14,9 +14,8 @@
 
 ### 1. Modelos y servicios
 
-*(Toma una captura de `venta.model.ts` y otra de `venta.service.ts`)*
-**[PEGAR CAPTURA 1 AQUÍ: Modelos VentaRequest y VentaResponse]**
-**[PEGAR CAPTURA 2 AQUÍ: VentaService con llamadas HTTP]**
+**[![alt text](image-1.png): Modelos VentaRequest y VentaResponse]**
+**[![alt text](image-2.png): VentaService con llamadas HTTP]**
 
 - **Explicación:** Se definieron dos modelos distintos para la tabla dependiente `Venta`: `VentaRequest` para enviar datos al backend (incluyendo solo el `clienteId`), y `VentaResponse` para recibir los datos de la base de datos (incluyendo el nombre del cliente y los subtotales calculados). El servicio `VentaService` maneja las peticiones HTTP exclusivas de esta entidad de forma separada de los componentes. Ningún componente inyecta `HttpClient` directamente.
 
@@ -43,9 +42,8 @@ export interface VentaResponse {
 
 ### 2. Lista con información relacionada
 
-*(Toma una captura de la lista de ventas en el navegador, con la consola Network abierta mostrando la petición `?clienteId=...`)*
-**[PEGAR CAPTURA 3 AQUÍ: Pantalla de Lista de Ventas mostrando el filtro y la tabla]**
-**[PEGAR CAPTURA 4 AQUÍ: Pestaña Network mostrando el parámetro GET]**
+**[![alt text](image-3.png): Pantalla de Lista de Ventas mostrando el filtro y la tabla]**
+**[![alt text](image-4.png): Pestaña Network mostrando el parámetro GET]**
 
 - **Explicación:** La tabla de lista muestra correctamente la relación con la tabla padre, enseñando el nombre del cliente en lugar de su ID, gracias al modelo `VentaResponse`. Además, se implementó un filtro en la cabecera que hace una petición directa al servidor enviando el parámetro `clienteId`, resolviendo el filtrado en el backend y no en el navegador.
 
@@ -60,8 +58,8 @@ export interface VentaResponse {
 
 ### 3. Lista desplegable y formulario
 
-*(Toma una captura del formulario de creación con la lista desplegable de clientes abierta)*
-**[PEGAR CAPTURA 5 AQUÍ: Formulario de Nueva Venta con el Select abierto]**
+
+**[![alt text](image-5.png): Formulario de Nueva Venta con el Select abierto]**
 
 - **Explicación:** El formulario de ventas reutiliza el `ClienteService` para poblar dinámicamente la lista desplegable de la tabla padre (Cliente) y el `ProductoService` para el detalle dinámico. Los selectores utilizan la directiva `[ngValue]` para asegurar que el dato seleccionado se guarde en memoria como un dato numérico estricto y no como texto. *(Nota: Por las reglas de negocio del dominio de facturación/ventas, estos documentos no se editan tras su emisión, solo se anulan, por lo que no aplica preselección de edición en este caso particular).*
 
@@ -77,9 +75,9 @@ export interface VentaResponse {
 
 ### 4. Validación de dependencias
 
-*(Toma una captura de los mensajes en rojo del formulario y otra del alert específico de 404)*
-**[PEGAR CAPTURA 6 AQUÍ: Formulario mostrando el mensaje "Seleccione un cliente válido" o "No hay clientes registrados"]**
-**[PEGAR CAPTURA 7 AQUÍ: Alerta del navegador que salta cuando el backend responde 404]**
+
+**[![alt text](image-6.png): Formulario mostrando el mensaje "Seleccione un cliente válido" o "No hay clientes registrados"]**
+**[![alt text](image-8.png): Alerta del navegador que salta cuando el backend responde 404]**
 
 - **Explicación:** Las dependencias se validan en dos niveles. En el formulario, se bloquea el guardado y se muestra un mensaje si el usuario intenta enviar datos sin elegir una opción de la lista. En el segundo nivel, se intercepta el error HTTP del backend; si este responde con un error 404 específico (porque el cliente o el producto fue eliminado mientras el formulario estaba abierto), la pantalla lo identifica y recarga las listas automáticamente para restaurar el estado real.
 
