@@ -94,10 +94,10 @@ Ingresa a tu navegador web y abre Swagger UI:
 
 ---
 
-## 👥 Equipo - JD Devs
+## 👥 Distribución de Módulos - Equipo JD Devs
 
-| Integrante | Módulo Transaccional | Módulo Catálogo |
+| Integrante | Módulos Asignados | Alcance / Responsabilidad |
 |---|---|---|
-| Yoel Wagner Chambi Sirena | Compras | Proveedores |
-| Aron Rodrigo | **Ventas** | Inventario (Materiales) |
-| Ronald Apaza | Cotizaciones | Clientes |
+| **Wilson Apaza** | **Catálogo, Inventario, Compras, Posventa** | Gestión de productos/categorías, control de existencias, abastecimiento transaccional (compras) y servicio postventa. |
+| **Yoel Chambi** | **Proveedores, Cotizaciones (proforma), Ventas** | Directorio de proveedores, emisión de proformas y módulo transaccional de ventas cabecera-detalle. |
+| **Aron Rodrigo** | **Clientes, Facturación, Notificaciones** | Directorio de clientes (DNI/RUC), emisión de comprobantes electrónicos (SUNAT) y sistema transversal de notificaciones. |
