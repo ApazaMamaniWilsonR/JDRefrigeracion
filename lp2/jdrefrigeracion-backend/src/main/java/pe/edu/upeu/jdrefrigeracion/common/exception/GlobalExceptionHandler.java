@@ -88,6 +88,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(respuesta);
     }
 
+    @ExceptionHandler(pe.edu.upeu.jdrefrigeracion.exception.AccesoDenegadoException.class)
+    public ResponseEntity<Map<String, Object>> manejarAccesoDenegado(pe.edu.upeu.jdrefrigeracion.exception.AccesoDenegadoException ex) {
+        Map<String, Object> respuesta = crearRespuesta(
+                HttpStatus.FORBIDDEN.value(),
+                "Forbidden",
+                ex.getMessage()
+        );
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(respuesta);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> manejarErrorGeneral(Exception ex) {
         Map<String, Object> respuesta = crearRespuesta(

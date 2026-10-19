@@ -59,12 +59,25 @@ public class VentaService {
                 .orElseThrow(() -> new RecursoNoEncontradoException("Venta no encontrada con id: " + id));
     }
 
+    public VentaResponse buscarPorId(Long id, String vendedorId) {
+        Venta venta = buscarEntidadPorId(id);
+        if (vendedorId != null && !vendedorId.equals(venta.getVendedorId())) {
+            throw new pe.edu.upeu.jdrefrigeracion.exception.AccesoDenegadoException("No tienes acceso a esta venta");
+        }
+        return toResponse(venta);
+    }
+
     public VentaResponse buscarPorId(Long id) {
-        return toResponse(buscarEntidadPorId(id));
+        return buscarPorId(id, null);
     }
 
     @Transactional
     public VentaResponse registrar(VentaRequest request) {
+        return registrar(request, null);
+    }
+
+    @Transactional
+    public VentaResponse registrar(VentaRequest request, String vendedorId) {
         Cliente cliente = clienteService.buscarEntidadPorId(request.clienteId());
 
         BigDecimal descuento = request.descuento() == null
@@ -72,6 +85,7 @@ public class VentaService {
                 : request.descuento();
 
         Venta venta = Venta.builder()
+                .vendedorId(vendedorId)
                 .fecha(LocalDateTime.now())
                 .estado(EstadoVenta.REGISTRADA)
                 .moneda(request.moneda())
@@ -224,9 +238,10 @@ public class VentaService {
         ventaRepository.save(venta);
     }
 
-    public List<VentaResponse> listarConFiltros(Long clienteId, EstadoVenta estado, LocalDateTime desde, LocalDateTime hasta) {
+    public List<VentaResponse> listarConFiltros(Long clienteId, EstadoVenta estado, LocalDateTime desde, LocalDateTime hasta, String vendedorId) {
         List<Venta> lista = ventaRepository.findAll();
         return lista.stream()
+                .filter(v -> vendedorId == null || (v.getVendedorId() != null && v.getVendedorId().equals(vendedorId)))
                 .filter(v -> clienteId == null || (v.getCliente() != null && v.getCliente().getId().equals(clienteId)))
                 .filter(v -> estado == null || v.getEstado() == estado)
                 .filter(v -> desde == null || !v.getFecha().isBefore(desde))
@@ -234,6 +249,38 @@ public class VentaService {
                 .sorted(java.util.Comparator.comparing(Venta::getId))
                 .map(this::toResponse)
                 .toList();
+    }
+
+    public List<VentaResponse> listarConFiltros(Long clienteId, EstadoVenta estado, LocalDateTime desde, LocalDateTime hasta) {
+        return listarConFiltros(clienteId, estado, desde, hasta, null);
+    }
+
+    public pe.edu.upeu.jdrefrigeracion.ventas.dto.VentaReporte resumen(EstadoVenta estado, LocalDateTime desde, LocalDateTime hasta) {
+        List<Venta> lista = ventaRepository.findAll().stream()
+                .filter(v -> estado == null || v.getEstado() == estado)
+                .filter(v -> desde == null || !v.getFecha().isBefore(desde))
+                .filter(v -> hasta == null || !v.getFecha().isAfter(hasta))
+                .toList();
+
+        long totalVentas = lista.size();
+        BigDecimal montoTotal = lista.stream()
+                .map(Venta::getTotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        pe.edu.upeu.jdrefrigeracion.ventas.dto.VentaAgregado agregado = new pe.edu.upeu.jdrefrigeracion.ventas.dto.VentaAgregado(totalVentas, montoTotal);
+
+        List<pe.edu.upeu.jdrefrigeracion.ventas.dto.VentaResumen> resumenVentas = lista.stream()
+                .sorted(java.util.Comparator.comparing(Venta::getFecha).reversed())
+                .map(v -> new pe.edu.upeu.jdrefrigeracion.ventas.dto.VentaResumen(
+                        v.getId(),
+                        v.getFecha(),
+                        v.getEstado(),
+                        v.getTotal(),
+                        v.getDetalles() != null ? v.getDetalles().size() : 0
+                ))
+                .toList();
+
+        return new pe.edu.upeu.jdrefrigeracion.ventas.dto.VentaReporte(agregado, resumenVentas);
     }
 
     @Transactional
